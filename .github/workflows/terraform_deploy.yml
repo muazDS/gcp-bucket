@@ -1,0 +1,35 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Apply Terraform changes
+      env:
+        credentials_path: ${{ secrets.GCP_KEY }}
+        project_id: ${{ secrets.GCP_PRO_ID }}
+        region: us-central1
+        bucket_name: iamtestingthis
+      run: |
+        terraform apply -auto-approve \
+          -var="credentials_path=${credentials_path}" \
+          -var="project_id=${project_id}" \
+          -var="region=${region}" \
+          -var="bucket_name=${bucket_name}"
