@@ -1,11 +1,11 @@
 provider "google" {
-  credentials = var.service_account_key
+  credentials = file(var.credentials_path)
   project     = var.project_id
   region      = var.region
 }
 
-resource "google_storage_bucket" "my_bucket" {
-  name     = var.bucket_name
-  location = var.region
-  project  = var.project_id
+resource "google_storage_bucket" "example_bucket" {
+  name          = var.bucket_name
+  location      = var.region
+  force_destroy = true
 }
