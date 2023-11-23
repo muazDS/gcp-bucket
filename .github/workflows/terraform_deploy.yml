@@ -27,7 +27,7 @@ jobs:
         region: us-central1
         bucket_name: letstestthis
       run: |
-        /home/runner/work/_temp/50968fed-c8c7-4170-a70e-5f55cd3a0cbd/terraform-bin apply -auto-approve \
+        terraform apply -auto-approve \
           -var="credentials_path=./neural-water-404520-2b5b17d0cb26.json" \
           -var="project_id=${project_id}" \
           -var="region=${region}" \
