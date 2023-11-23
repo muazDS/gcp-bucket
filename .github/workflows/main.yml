@@ -1,0 +1,31 @@
+name: Create GCP Bucket
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-bucket:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        env:
+          SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_KEY }}
+          REGION: "us" # Replace with your desired region
+          BUCKET_NAME: "your-bucket-name" # Replace with your desired bucket name
+        run: |
+          terraform apply -auto-approve \
+            -var="service_account_key=${SERVICE_ACCOUNT_KEY}" \
+            -var="project_id=your-project-id" \
+            -var="region=${REGION}" \
+            -var="bucket_name=${BUCKET_NAME}"
