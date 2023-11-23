@@ -26,6 +26,6 @@ jobs:
         run: |
           terraform apply -auto-approve \
             -var="service_account_key=${SERVICE_ACCOUNT_KEY}" \
-            -var="project_id=your-project-id" \
+            -var="project_id=neural-water-404520" \
             -var="region=${REGION}" \
             -var="bucket_name=${BUCKET_NAME}"
