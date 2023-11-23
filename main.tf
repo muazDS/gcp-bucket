@@ -4,21 +4,7 @@ provider "google" {
   region      = var.gcp_region
 }
 
-variable "gcp_credentials_path" {
-  description = "Path to the Google Cloud service account credentials file"
-}
 
-variable "gcp_project_id" {
-  description = "Google Cloud Project ID"
-}
-
-variable "gcp_region" {
-  description = "Google Cloud region for the resources"
-}
-
-variable "storage_bucket_name" {
-  description = "Name for the Google Cloud Storage bucket"
-}
 
 resource "google_storage_bucket" "static_website_bucket" {
   name          = var.storage_bucket_name
@@ -27,7 +13,7 @@ resource "google_storage_bucket" "static_website_bucket" {
 }
 
 resource "google_compute_backend_bucket" "cdn_backend_bucket" {
-  name        = var.storage_bucket_name
+  name        = "${var.storage_bucket_name}-cdn"
   bucket_name = google_storage_bucket.static_website_bucket.name
   enable_cdn  = true
 }
