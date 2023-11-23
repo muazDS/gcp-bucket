@@ -23,13 +23,12 @@ jobs:
 
     - name: Apply Terraform changes
       env:
-        credentials_json: ${{ secrets.GCP_KEY }}
         project_id: neural-water-404520
         region: us-central1
         bucket_name: letstestthis
       run: |
-        terraform apply -auto-approve \
-          -var="credentials_path=data:text/plain;charset=utf-8;base64,${{ secrets.GCP_KEY }}" \
+        /home/runner/work/_temp/50968fed-c8c7-4170-a70e-5f55cd3a0cbd/terraform-bin apply -auto-approve \
+          -var="credentials_path=./neural-water-404520-2b5b17d0cb26.json" \
           -var="project_id=${project_id}" \
           -var="region=${region}" \
           -var="bucket_name=${bucket_name}"
