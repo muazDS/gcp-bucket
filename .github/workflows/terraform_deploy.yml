@@ -24,12 +24,9 @@ jobs:
     - name: Apply Terraform changes
       env:
         credentials_path: ${{ secrets.GCP_KEY }}
-        project_id: ${{ secrets.GCP_PRO_ID }}
-        region: us-central1
-        bucket_name: iamtestingthis
       run: |
         terraform apply -auto-approve \
           -var="credentials_path=${credentials_path}" \
-          -var="project_id=${project_id}" \
-          -var="region=${region}" \
-          -var="bucket_name=${bucket_name}"
+          -var="project_id=your-gcp-project-id" \
+          -var="region=us-central1" \
+          -var="bucket_name=letstestthis"
