@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # Allowing manual triggering using GitHub Dispatch
 
 jobs:
   terraform:
@@ -21,11 +22,18 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
+    - name: Prompt for Inputs
+      id: input
+      run: |
+        echo "::set-output name=project_id::$(read -p 'Enter GCP Project ID: ' var && echo $var)"
+        echo "::set-output name=region::$(read -p 'Enter GCP Region: ' var && echo $var)"
+        echo "::set-output name=bucket_name::$(read -p 'Enter Bucket Name: ' var && echo $var)"
+
     - name: Apply Terraform changes
       env:
-        project_id: neural-water-404520
-        region: us-central1
-        bucket_name: letstestthis
+        project_id: ${{ steps.input.outputs.project_id }}
+        region: ${{ steps.input.outputs.region }}
+        bucket_name: ${{ steps.input.outputs.bucket_name }}
       run: |
         terraform apply -auto-approve \
           -var="credentials_path=./neural-water-404520-2b5b17d0cb26.json" \
