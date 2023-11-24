@@ -2,8 +2,8 @@ terraform {
   backend "gcs" {
     bucket         = "state-files-bucket-git"
     prefix         = "terraform/state"
-    credentials    = var.gcp_credentials_path
-    project        = var.gcp_project_id
-    region         = var.gcp_region
+    credentials    = "./neural-water-404520-2b5b17d0cb26.json"
+    project        = "neural-water-404520"
+    region         = "us"
   }
 }
