@@ -1,7 +1,5 @@
 provider "google" {
-  credentials = file(var.gcp_credentials_path)
-  project     = var.gcp_project_id
-  region      = var.gcp_region
+  credentials = var.gcp_credentials_path
 }
 
 terraform {
@@ -10,7 +8,7 @@ terraform {
     prefix         = "terraform/state"
     credentials    = var.gcp_credentials_path
     project        = var.gcp_project_id
-    region         = us
+    region         = var.gcp_region
   }
 }
 
