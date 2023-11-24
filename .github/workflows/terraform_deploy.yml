@@ -38,7 +38,7 @@ jobs:
         region: ${{ github.event.inputs.region }}
         bucket_name: ${{ github.event.inputs.bucket_name }}
       run: |
-        terraform apply -auto-approve \
+        terraform apply -lock=false -auto-approve \
           -var="gcp_credentials_path=./neural-water-404520-2b5b17d0cb26.json" \
           -var="gcp_project_id=${project_id}" \
           -var="gcp_region=${region}" \
