@@ -43,3 +43,16 @@ jobs:
           -var="gcp_project_id=${project_id}" \
           -var="gcp_region=${region}" \
           -var="storage_bucket_name=${bucket_name}"
+
+    - name: Destroy Terraform resources
+      if: github.event_name == 'workflow_dispatch' && github.event.action == 'destroy'
+      env:
+        project_id: ${{ github.event.inputs.project_id }}
+        region: ${{ github.event.inputs.region }}
+        bucket_name: ${{ github.event.inputs.bucket_name }}
+      run: |
+        terraform destroy -auto-approve \
+          -var="gcp_credentials_path=./neural-water-404520-2b5b17d0cb26.json" \
+          -var="gcp_project_id=${project_id}" \
+          -var="gcp_region=${region}" \
+          -var="storage_bucket_name=${bucket_name}"
