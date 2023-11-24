@@ -13,7 +13,7 @@ resource "google_storage_bucket" "static_website_bucket" {
 }
 
 resource "google_compute_backend_bucket" "cdn_backend_bucket" {
-  name        = "${var.storage_bucket_name}-cdn"
+  name        = var.storage_bucket_name
   bucket_name = google_storage_bucket.static_website_bucket.name
   enable_cdn  = true
 }
